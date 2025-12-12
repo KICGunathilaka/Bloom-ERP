@@ -32,3 +32,5 @@
 - Port in use (`EADDRINUSE`): stop duplicate dev servers; keep one backend on `3000` and one frontend on `5173`.
 - DB errors: verify PostgreSQL is running and `.env` values are correct.
 - CORS: API enables `cors()` for local dev; frontend calls `http://localhost:3000`.
+
+# Test
