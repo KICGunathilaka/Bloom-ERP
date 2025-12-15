@@ -38,7 +38,7 @@ type ProjectItem = {
 }
 
 export default function Dashboard({ user, onLogout }: { user: User; onLogout?: () => void }) {
-  const [tab, setTab] = useState<'home' | 'employees' | 'projects' | 'accounting'>('home')
+  const [tab, setTab] = useState<'home' | 'employees' | 'projects' | 'accounting' | 'accounting_open_account'>('home')
   const [navOpen, setNavOpen] = useState(true)
   const [addOpen, setAddOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
@@ -511,6 +511,9 @@ export default function Dashboard({ user, onLogout }: { user: User; onLogout?: (
           <button onClick={() => setTab('employees')} title="Employee Management" style={{ textAlign: navOpen ? 'left' : 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: tab === 'employees' ? 'var(--accent)' : 'transparent', color: '#fff', cursor: 'pointer' }}>{navOpen ? 'Employee Management' : '👥'}</button>
           <button onClick={() => setTab('projects')} title="Projects" style={{ textAlign: navOpen ? 'left' : 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: tab === 'projects' ? 'var(--accent)' : 'transparent', color: '#fff', cursor: 'pointer' }}>{navOpen ? 'Projects' : '📁'}</button>
           <button onClick={() => setTab('accounting')} title="Accounting" style={{ textAlign: navOpen ? 'left' : 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: tab === 'accounting' ? 'var(--accent)' : 'transparent', color: '#fff', cursor: 'pointer' }}>{navOpen ? 'Accounting' : '💼'}</button>
+          {tab === 'accounting' && (
+            <button onClick={() => setTab('accounting_open_account')} title="Open Account" style={{ textAlign: navOpen ? 'left' : 'center', padding: '10px 12px', marginLeft: navOpen ? 16 : 0, borderRadius: 8, border: '1px solid var(--primary)', background: tab === 'accounting_open_account' ? 'var(--accent)' : 'transparent', color: '#fff', cursor: 'pointer' }}>{navOpen ? '• Open Account' : '➕'}</button>
+          )}
         </aside>
         <section style={{ flex: 1, height: '100%', background: 'transparent', borderRadius: 0, border: 'none', padding: 24, display: 'grid', placeItems: 'start', alignContent: 'start', gap: 16 }}>
           {tab === 'home' && (
@@ -633,6 +636,26 @@ export default function Dashboard({ user, onLogout }: { user: User; onLogout?: (
             <div style={{ width: '100%', display: 'grid', gap: 16 }}>
               <h1 style={{ marginTop: 0, fontSize: 28 }}>Accounting</h1>
               <p style={{ margin: 0 }}>Accounting workspace. Add ledgers, track expenses, and view reports.</p>
+            </div>
+          )}
+          {tab === 'accounting_open_account' && (
+            <div style={{ width: '100%', display: 'grid', gap: 16 }}>
+              <h1 style={{ marginTop: 0, fontSize: 28 }}>Open Account</h1>
+              <p style={{ margin: 0 }}>Create a new account.</p>
+              <div style={{ display: 'grid', gap: 12, maxWidth: 520 }}>
+                <label style={{ display: 'grid', gap: 8 }}>
+                  <span>Account Name</span>
+                  <input type="text" placeholder="Enter account name" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: '#fff', color: '#111' }} />
+                </label>
+                <label style={{ display: 'grid', gap: 8 }}>
+                  <span>Initial Deposit</span>
+                  <input type="number" placeholder="0.00" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: '#fff', color: '#111' }} />
+                </label>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: 'var(--accent)', color: '#fff', cursor: 'pointer' }}>Open Account</button>
+                  <button onClick={() => setTab('accounting')} style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid var(--primary)', background: 'transparent', color: '#fff', cursor: 'pointer' }}>Back to Accounting</button>
+                </div>
+              </div>
             </div>
           )}
         </section>
